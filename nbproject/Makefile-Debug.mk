@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/gen-cpp/UserStorage.o \
+	${OBJECTDIR}/gen-cpp/user_profile_constants.o \
+	${OBJECTDIR}/gen-cpp/user_profile_types.o \
 	${OBJECTDIR}/main.o
 
 
@@ -42,8 +45,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-std=c++11
+CXXFLAGS=-std=c++11
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -60,12 +63,27 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/poco_app_client: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/poco_app_client ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/poco_app_client ${OBJECTFILES} ${LDLIBSOPTIONS} -lthrift -lthriftnb -levent -lkyotocabinet -lz -lstdc++ -lrt -lpthread -lm -lc -lPocoUtil -lPocoXML -lPocoJSON -lPocoNet -lPocoFoundation
+
+${OBJECTDIR}/gen-cpp/UserStorage.o: gen-cpp/UserStorage.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/local/include/thrift -I/usr/local/include/boost -I/usr/local/include/Poco -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/UserStorage.o gen-cpp/UserStorage.cpp
+
+${OBJECTDIR}/gen-cpp/user_profile_constants.o: gen-cpp/user_profile_constants.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/local/include/thrift -I/usr/local/include/boost -I/usr/local/include/Poco -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/user_profile_constants.o gen-cpp/user_profile_constants.cpp
+
+${OBJECTDIR}/gen-cpp/user_profile_types.o: gen-cpp/user_profile_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/local/include/thrift -I/usr/local/include/boost -I/usr/local/include/Poco -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/user_profile_types.o gen-cpp/user_profile_types.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/local/include/thrift -I/usr/local/include/boost -I/usr/local/include/Poco -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/gen-cpp/UserStorage.o \
+	${OBJECTDIR}/gen-cpp/user_profile_constants.o \
+	${OBJECTDIR}/gen-cpp/user_profile_types.o \
 	${OBJECTDIR}/main.o
 
 
@@ -61,6 +64,21 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/poco_app_client: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/poco_app_client ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/gen-cpp/UserStorage.o: gen-cpp/UserStorage.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/UserStorage.o gen-cpp/UserStorage.cpp
+
+${OBJECTDIR}/gen-cpp/user_profile_constants.o: gen-cpp/user_profile_constants.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/user_profile_constants.o gen-cpp/user_profile_constants.cpp
+
+${OBJECTDIR}/gen-cpp/user_profile_types.o: gen-cpp/user_profile_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}/gen-cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gen-cpp/user_profile_types.o gen-cpp/user_profile_types.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
